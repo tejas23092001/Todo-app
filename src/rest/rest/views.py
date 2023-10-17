@@ -22,7 +22,7 @@ class TodoListView(APIView):
         my_json =  json.loads(request.body.decode('utf8'))
 
         todos_col.find_one_and_replace(filter={'description':my_json['description']},
-            replacement={'description': my_json['description'], 'completed': my_json['completed']},
+            replacement={'description': my_json['description']},
             upsert=True)
 
         # Implement this method - accept a todo item in a mongo collection, persist it using db instance above.

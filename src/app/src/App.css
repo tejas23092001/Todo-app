@@ -1,12 +1,20 @@
+body {
+    background: url('./todo-cover-pic.jpg') no-repeat center center fixed;
+    background-size: cover;
+    font-family: Arial, sans-serif;
+}
+
+
 .containerStyle {
     width: 400px;
     margin: 0 auto;
     padding: 20px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 2);
     text-align: center;
     margin-top: 20px;
+    background-color: #ccc;
 }
 
 h1 {
@@ -34,4 +42,8 @@ button {
 
 button:hover {
     background-color: #0056b3;
+}
+
+li {
+    text-align: left;
 }
