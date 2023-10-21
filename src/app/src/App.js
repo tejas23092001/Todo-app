@@ -4,10 +4,13 @@ import './App.css';
 function App() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
-  const [error, setError] = useState(null); // Error state
+  const [error, setError] = useState(null);
+
+  const apiURL = process.env.REACT_APP_API_URL
 
   useEffect(() => {
-    fetch('http://localhost:8000/todos/')
+    console.log(apiURL)
+    fetch(`${apiURL}/todos/`)
       .then((response) => response.json())
       .then((data) => setTodos(data))
       .catch((error) => console.error(error));
@@ -21,14 +24,12 @@ function App() {
     e.preventDefault();
     const todoData = { description: newTodo, completed: false };
 
-    // Check for duplicate before adding
     if (todos.some((todo) => todo.description === newTodo)) {
       setError('Todo already exists.');
     } else {
-      // If not a duplicate, clear the error and proceed
       setError(null);
 
-      fetch('http://localhost:8000/todos/', {
+      fetch(`${apiURL}/todos/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

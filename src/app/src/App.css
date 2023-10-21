@@ -1,9 +1,8 @@
 body {
-    background: url('./todo-cover-pic.jpg') no-repeat center center fixed;
+    background: url('./Assets/todo-cover-pic.jpg') no-repeat center center fixed;
     background-size: cover;
     font-family: Arial, sans-serif;
 }
-
 
 .containerStyle {
     width: 400px;
