@@ -1,28 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import TodoList from './components/todoList.js';
+import TodoList from './components/todoList';
 import './App.css';
+import axios from './utils/axios';
 
 function App() {
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
   const [error, setError] = useState(null);
-
-  const apiURL = process.env.REACT_APP_API_URL;
-
-  useEffect(() => {
-    fetch(`${apiURL}/todos`)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
-        return response.json();
-      })
-      .then((data) => setTodos(data))
-      .catch((error) => {
-        setError('Failed to fetch todos.');
-        console.error(error);
-      });
-  }, [apiURL]);
 
   const handleInputChange = (e) => {
     setNewTodo(e.target.value);
@@ -37,19 +21,8 @@ function App() {
     } else {
       setError(null);
 
-      fetch(`${apiURL}/todos`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(todoData),
-      })
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
+      axios
+        .post('/todos', todoData)
         .then((data) => {
           setTodos([...todos, data]);
           setNewTodo('');
@@ -60,6 +33,16 @@ function App() {
         });
     }
   };
+
+  useEffect(() => {
+    axios
+      .get('/todos')
+      .then((data) => setTodos(data))
+      .catch((error) => {
+        setError('Failed to fetch todos.');
+        console.error(error);
+      });
+  }, []);
 
   return (
     <div className="containerStyle">
